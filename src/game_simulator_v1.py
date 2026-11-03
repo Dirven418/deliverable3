@@ -1,5 +1,4 @@
 # Object-oriented game simulator
-# Turid Torheim, NMBU, 2026
 
 class Character:
     """Represents a character in the RPG"""
@@ -17,6 +16,16 @@ class Character:
         self._hp = hp_max  # Note: _hp indicated private attribute
         self.hp_max = hp_max
         self.damage = damage
+
+    def take_damage(self, amount: int) -> None:
+        """Take damage and reduce players HP"""
+        self._hp -= amount
+        self._hp = max(self._hp, 0)
+
+    def heal(self, amount: int) -> None:
+        """Heal and increase players HP"""
+        self._hp += amount
+        self._hp = min(self._hp, self.hp_max)
 
     def attack(self, target) -> None:
         """Attack and deal damage to target character"""
