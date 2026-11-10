@@ -57,20 +57,10 @@ class Character:
 class Warrior(Character):
     """Specialized character as a warrior (defensive specialist)"""
 
-    def __init__(self, name: str, hp_max: int = 100, damage: int = 10, armor: int = 5) -> None:
-        """
-        Initialise the Character
+    def __init__(self, name: str, hp_max: int = 100, damage: int = 10, weapon: items.weapon = None, armor: int = 5) -> None:
+        """Initialise the warrior"""
 
-        Args:
-            name (str): The name of the character.
-            hp_max (int): Max hit points (default = 100)
-            damage (int): Damage delt when character attacks (default = 10)
-            armor (int): Armor value which reduces character damage (default = 5)
-        """
-        self.name = name
-        self._hp = hp_max  # Note: _hp indicated private attribute
-        self.hp_max = hp_max
-        self.damage = damage
+        super().__init__(name=name, hp_max=hp_max, damage=damage, weapon=weapon)
         self.armor = armor
 
     def take_damage(self, amount: int) -> None:
@@ -79,3 +69,45 @@ class Warrior(Character):
         self._hp -= warrior_damage
         self._hp = max(self._hp, 0)
 
+
+class Mage(Character):
+    """Specialized character as as mage (resource-based attacker)"""
+
+    def __init__(self, name: str, hp_max: int = 100, damage: int = 10, mana: int = 30, mana_max: int = 30) -> None:
+        """
+        Initialise the Character
+
+        Args:
+            name (str): The name of the character.
+            hp_max (int): Max hit points (default = 100)
+            damage (int): Damage delt when character attacks (default = 10)
+            mana (int): The character's mana (default = 30)
+            mana_max (int): The character's max mana (default = 30)
+        """
+        self.name = name
+        self._hp = hp_max  # Note: _hp indicated private attribute
+        self.hp_max = hp_max
+        self.damage = damage
+        self.mana = mana
+        self.mana_max = mana_max
+
+    def attack(self, target) -> None:
+        """Attack and deal damage to target character, using mana"""
+        if self.mana >= 10:
+            target.take_damage(2 * self.damage)   # Magical spell attack with double damage
+            self.mana -= 10
+            self.mana = max(self.mana, 0)
+        else:
+            target.take_damage(self.damage)   # Base attack with equipped weapon
+            self.mana += 5
+            self.mana = min(self.mana, self.mana_max)
+
+
+char1 = Warrior("Aria")
+char2 = Mage("Leo")
+
+char1.take_damage(20)
+print(char1.hp)
+
+char2.attack(char1)
+print(char1.hp)
