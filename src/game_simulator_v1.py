@@ -52,3 +52,30 @@ class Character:
     def is_alive(self) -> bool:
         """Read-only property to check if the character is alive (HP > 0)"""
         return self._hp > 0
+
+
+class Warrior(Character):
+    """Specialized character as a warrior (defensive specialist)"""
+
+    def __init__(self, name: str, hp_max: int = 100, damage: int = 10, armor: int = 5) -> None:
+        """
+        Initialise the Character
+
+        Args:
+            name (str): The name of the character.
+            hp_max (int): Max hit points (default = 100)
+            damage (int): Damage delt when character attacks (default = 10)
+            armor (int): Armor value which reduces character damage (default = 5)
+        """
+        self.name = name
+        self._hp = hp_max  # Note: _hp indicated private attribute
+        self.hp_max = hp_max
+        self.damage = damage
+        self.armor = armor
+
+    def take_damage(self, amount: int) -> None:
+        """Take damage and reduce players HP, taking armor into account"""
+        warrior_damage = max(amount - self.armor, 0)
+        self._hp -= warrior_damage
+        self._hp = max(self._hp, 0)
+
