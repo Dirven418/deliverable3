@@ -15,4 +15,8 @@ class Weapon:
         # gets a damage roll for weapon by calling Dice.roll()
         return self.damage_dice.roll()
 
-Weapon("Ax", )
+# example weapon
+# weapon1 = Weapon("Ax", Dice())
+
+# print(weapon1)
+# print(weapon1.roll_damage())

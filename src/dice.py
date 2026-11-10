@@ -32,4 +32,6 @@ class Dice:
         """Rolls the specified die when object is called"""
         return self.roll()
 
-
+# exapmle d20
+# d20 = Dice(20)
+# print(d20())
