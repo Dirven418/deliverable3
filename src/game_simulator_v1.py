@@ -43,11 +43,14 @@ class Character:
 
     def __repr__(self) -> str:
         """Representation of character object"""
-        return f"<Character name={self.name} hp={self.hp} damage={self.damage}>)"
+        return f"<Character name={self.name} hp={self.hp} damage={self.damage} weapon={self.weapon}>)"
 
     def __str__(self) -> str:
         """String representation of character object"""
-        return f"Character: {self.name} with {self.hp} HP and {self.damage} damage"
+        if self.weapon is None:
+            return f"Character: {self.name} with {self.hp} HP and {self.damage} damage carrying no weapon"
+        else:
+            return f"Character: {self.name} with {self.hp} HP and {self.damage} damage carrying a {self.weapon.name}"
 
     @property
     def hp(self) -> int:
@@ -62,4 +65,10 @@ class Character:
 
 # example character with weapon
 # ch1 = Character("Aria", weapon=items.Weapon("Dagger", Dice(4)))
-# print(ch1.attack)
+# # print(ch1.attack)
+
+# character wihtout a weapon
+# ch2 = Character("Wolf")
+
+# print(ch1)
+# print(ch2)
