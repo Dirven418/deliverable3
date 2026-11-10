@@ -1,5 +1,4 @@
 # Object-oriented game simulator
-# Turid Torheim, NMBU, 2026
 
 class Character:
     """Represents a character in the RPG"""
@@ -18,10 +17,19 @@ class Character:
         self.hp_max = hp_max
         self.damage = damage
 
+    def take_damage(self, amount: int) -> None:
+        """Take damage and reduce players HP"""
+        self._hp -= amount
+        self._hp = max(self._hp, 0)
+
+    def heal(self, amount: int) -> None:
+        """Heal and increase players HP"""
+        self._hp += amount
+        self._hp = min(self._hp, self.hp_max)
+
     def attack(self, target) -> None:
         """Attack and deal damage to target character"""
-        target._hp -= self.damage
-        target._hp = max(target._hp, 0)  # Target hp cannot end up lower than 0
+        target.take_damage(self.damage)
 
     def introduce(self) -> None:
         """Creates string that introduces character"""
@@ -39,3 +47,8 @@ class Character:
     def hp(self) -> int:
         """Public read-only property to inspect HP without allowing direct, unsafe edits."""
         return self._hp
+
+    @property
+    def is_alive(self) -> bool:
+        """Read-only property to check if the character is alive (HP > 0)"""
+        return self._hp > 0
