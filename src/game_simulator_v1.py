@@ -121,5 +121,3 @@ class Mage(Character):
 # ch2.attack(ch1)
 # print(ch1)
 # print(ch2)
-
-print(Mage("Mage"))
