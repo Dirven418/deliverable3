@@ -63,6 +63,52 @@ class Character:
         return self._hp > 0
 
 
+class Warrior(Character):
+    """Specialized character as a warrior (defensive specialist)"""
+
+    def __init__(self,
+                name: str,
+                hp_max: int = 100,
+                damage: int = 10,
+                weapon: items.weapon = None,
+                armor: int = 5) -> None:
+        """Initialise the warrior"""
+        super().__init__(name=name, hp_max=hp_max, damage=damage, weapon=weapon)
+        self.armor = armor
+
+    def take_damage(self, amount: int) -> None:
+        """Take damage and reduce players HP, taking armor into account"""
+        warrior_damage = max(amount - self.armor, 0)    # Reducing the incoming damage by armor, only allow positive damage
+        self._hp -= warrior_damage
+        self._hp = max(self._hp, 0)
+
+
+class Mage(Character):
+    """Specialized character as a mage (resource-based attacker)"""
+
+    def __init__(self,
+                name: str,
+                hp_max: int = 100,
+                damage: int = 10,
+                weapon: items.weapon = None,
+                mana: int = 30,
+                mana_max: int = 30) -> None:
+        """Initialise the mage"""
+        super().__init__(name=name, hp_max=hp_max, damage=damage, weapon=weapon)
+        self.mana = mana
+        self.mana_max = mana_max
+
+    def attack(self, target) -> None:
+        """Attack and deal damage to target character, using mana"""
+        if self.mana >= 10:
+            target.take_damage(2 * self.damage)    # Magical spell attack with double damage
+            self.mana -= 10
+            self.mana = max(self.mana, 0)
+        else:
+            target.take_damage(self.weapon.roll_damage())    # Base attack with equipped weapon
+            self.mana += 5
+            self.mana = min(self.mana, self.mana_max)
+
 # example character with weapon
 # ch1 = Character("Aria", weapon=items.Weapon("Dagger", Dice(4)))
 # # print(ch1.attack)
