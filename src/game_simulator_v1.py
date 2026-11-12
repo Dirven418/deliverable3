@@ -13,6 +13,7 @@ class Character:
             name (str): The name of the character.
             hp_max (int): Max hit points (default = 100)
             damage (int): Damage delt when character attacks (default = 10)
+            weapon (items.weapon): Any weapons the character might be using
         """
         self.name = name
         self._hp = hp_max  # Note: _hp indicated private attribute
@@ -33,7 +34,7 @@ class Character:
     def attack(self, target) -> None:
         """Attack and deal damage to target character"""
         if self.weapon is None:
-            target.take_damage(self.damage)
+            target.take_damage(Dice(self.damage).roll())
         else:
             target.take_damage(self.weapon.roll_damage())
 
@@ -111,10 +112,11 @@ class Mage(Character):
 
 # example character with weapon
 # ch1 = Character("Aria", weapon=items.Weapon("Dagger", Dice(4)))
-# # print(ch1.attack)
+# # # print(ch1.attack)
 
-# character wihtout a weapon
+# # character wihtout a weapon
 # ch2 = Character("Wolf")
 
+# ch2.attack(ch1)
 # print(ch1)
 # print(ch2)
