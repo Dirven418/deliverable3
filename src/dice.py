@@ -34,4 +34,5 @@ class Dice:
 
 # exapmle d20
 # d20 = Dice(20)
+# print(Dice(10).roll())
 # print(d20())
