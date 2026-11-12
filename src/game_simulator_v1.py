@@ -122,3 +122,4 @@ class Mage(Character):
 # print(ch1)
 # print(ch2)
 
+print(Mage("Mage"))
