@@ -92,10 +92,14 @@ class Mage(Character):
     def attack(self, target) -> None:
         """Attack and deal damage to target character, using mana"""
         if self.mana >= 10:
-            target.take_damage(2 * self.damage)    # Magical spell attack with double damage
+            target.take_damage(2 * Dice(self.damage).roll())    # Magical spell attack with double damage
             self.mana -= 10
             self.mana = max(self.mana, 0)
         else:
-            target.take_damage(self.weapon.roll_damage())    # Base attack with equipped weapon
+            if self.weapon is None:
+                target.take_damage(Dice(self.damage).roll())    # Base attack when character has no weapon
+            else:
+                target.take_damage(self.weapon.roll_damage())    # Base attack with equipped weapon
+
             self.mana += 5
             self.mana = min(self.mana, self.mana_max)
