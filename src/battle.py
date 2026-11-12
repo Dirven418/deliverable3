@@ -28,9 +28,9 @@ class Battle:
             self.play_round()
 
         if self.hero.is_alive is True:
-            return f"{self.hero.name} deafeted {self.enemy.name} and won"
+            return f"{self.hero.name} defeated {self.enemy.name} and won"
         else:
-            return f"The despicable {self.enemy.name} has deafeted {self.hero.name}"
+            return f"The despicable {self.enemy.name} has defeated {self.hero.name}"
 
 
 # example character with weapon
