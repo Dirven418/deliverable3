@@ -33,16 +33,16 @@ class Battle:
             return f"The despicable {self.enemy.name} has deafeted {self.hero.name}"
 
 
-# example character with weapon
-ch1 = game.Character("Aria", weapon=items.Weapon("Dagger", Dice(15)))
-# # # print(ch1.attack)
+# # example character with weapon
+# ch1 = game.Character("Aria", weapon=items.Weapon("Dagger", Dice(15)))
+# # # # print(ch1.attack)
 
-# # character wihtout a weapon
-ch2 = game.Character("Wolf")
+# # # character wihtout a weapon
+# ch2 = game.Character("Wolf")
 
-# ch2.attack(ch1)
-# print(ch1)
-# print(ch2)
+# # ch2.attack(ch1)
+# # print(ch1)
+# # print(ch2)
 
-print(Battle(ch1, ch2).simulate_battle())
-# print(Battle(ch1, ch2).play_round())
+# print(Battle(ch1, ch2).simulate_battle())
+# # print(Battle(ch1, ch2).play_round())
