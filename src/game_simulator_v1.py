@@ -38,6 +38,7 @@ class Character:
         else:
             target.take_damage(self.weapon.roll_damage())
 
+
     def introduce(self) -> None:
         """Creates string that introduces character"""
         print(f"Hi, my name is {self.name}!")
@@ -120,3 +121,4 @@ class Mage(Character):
 # ch2.attack(ch1)
 # print(ch1)
 # print(ch2)
+
