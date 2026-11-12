@@ -8,7 +8,7 @@ class Dice:
         Creates a rollable n-sided die
         
         Args:
-            sides: how many sides the die should have
+            sides: how many sides the die should have. Default 6.
         """
         if sides >= 2:
             self.sides = sides
@@ -17,7 +17,7 @@ class Dice:
 
     def roll(self) -> int:
         """Rolls a random number for the dice"""
-
+        # returns a random nunmber between 1 and size of die
         return random.randint(1, self.sides)
 
     def __repr__(self) -> str:
@@ -32,13 +32,6 @@ class Dice:
         """Rolls the specified die when object is called"""
         return self.roll()
 
-
-d20 = Dice(sides=20)
-
-print(d20())
-print(d20())
-print(d20.roll())
-
-print(repr(d20))
-
-d1 = Dice(sides=1)
+# exapmle d20
+# d20 = Dice(20)
+# print(d20())

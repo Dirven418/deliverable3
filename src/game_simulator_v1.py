@@ -1,9 +1,11 @@
 # Object-oriented game simulator
+import items
+from dice import Dice
 
 class Character:
     """Represents a character in the RPG"""
 
-    def __init__(self, name: str, hp_max: int = 100, damage: int = 10) -> None:
+    def __init__(self, name: str, hp_max: int = 100, damage: int = 10, weapon: items.Weapon = None) -> None:
         """
         Initialise the Character
 
@@ -16,6 +18,7 @@ class Character:
         self._hp = hp_max  # Note: _hp indicated private attribute
         self.hp_max = hp_max
         self.damage = damage
+        self.weapon = weapon
 
     def take_damage(self, amount: int) -> None:
         """Take damage and reduce players HP"""
@@ -29,7 +32,10 @@ class Character:
 
     def attack(self, target) -> None:
         """Attack and deal damage to target character"""
-        target.take_damage(self.damage)
+        if self.weapon is None:
+            target.take_damage(self.damage)
+        else:
+            target.take_damage(self.weapon.roll_damage())
 
     def introduce(self) -> None:
         """Creates string that introduces character"""
@@ -37,11 +43,14 @@ class Character:
 
     def __repr__(self) -> str:
         """Representation of character object"""
-        return f"<Character name={self.name} hp={self.hp} damage={self.damage}>)"
+        return f"<Character name={self.name} hp={self.hp} damage={self.damage} weapon={self.weapon}>)"
 
     def __str__(self) -> str:
         """String representation of character object"""
-        return f"Character: {self.name} with {self.hp} HP and {self.damage} damage"
+        if self.weapon is None:
+            return f"Character: {self.name} with {self.hp} HP and {self.damage} damage carrying no weapon"
+        else:
+            return f"Character: {self.name} with {self.hp} HP and {self.damage} damage carrying a {self.weapon.name}"
 
     @property
     def hp(self) -> int:
@@ -99,3 +108,13 @@ class Mage(Character):
             target.take_damage(self.weapon.roll_damage())    # Base attack with equipped weapon
             self.mana += 5
             self.mana = min(self.mana, self.mana_max)
+
+# example character with weapon
+# ch1 = Character("Aria", weapon=items.Weapon("Dagger", Dice(4)))
+# # print(ch1.attack)
+
+# character wihtout a weapon
+# ch2 = Character("Wolf")
+
+# print(ch1)
+# print(ch2)
